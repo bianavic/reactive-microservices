@@ -3,7 +3,6 @@ package com.microservices.studies
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 import java.util.concurrent.ConcurrentHashMap
-import java.util.logging.Filter
 
 @RestController
 class CustomerController {
@@ -20,4 +19,10 @@ class CustomerController {
         customers.filter {
             it.value.name.contains(nameFilter, true)
         }.map(Map.Entry<Int, Customer>::value).toList()
+
+    // @RequestBody = means it is sending a object
+    @RequestMapping(value = arrayOf("/customer"), method = arrayOf(RequestMethod.POST))
+    fun createCustomer(@RequestBody customer: Customer) {
+        customers[customer.id] = customer
+    }
 }
