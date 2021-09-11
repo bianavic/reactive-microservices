@@ -32,7 +32,14 @@ class CustomerController {
     }
 
     @DeleteMapping(value = arrayOf("/customer/{id}"))
-    fun deleteCustomer(@PathVariable id: Int) = customerService.deleteCustomer(id)
+    fun deleteCustomer(@PathVariable id: Int): ResponseEntity<Unit> {
+        var status = HttpStatus.NOT_FOUND
+        if (customerService.getCustomer(id) != null) {
+            customerService.deleteCustomer(id)
+            status = HttpStatus.OK
+        }
+        return ResponseEntity(Unit, status)
+    }
 
     @PutMapping(value = arrayOf("/customer/{id}"))
     fun updateCustomer(@PathVariable id: Int, @RequestBody customer: Customer) {
