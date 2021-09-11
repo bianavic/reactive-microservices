@@ -24,9 +24,11 @@ class CustomerController {
         customerService.searchCustomer(nameFilter)
 
     // @RequestBody = means it is sending a object
+    // set Unit = equivalent to void type
     @PostMapping(value = arrayOf("/customer"))
-    fun createCustomer(@RequestBody customer: Customer) {
+    fun createCustomer(@RequestBody customer: Customer):  ResponseEntity<Unit> {
         customerService.createCustomer(customer)
+        return ResponseEntity(Unit, HttpStatus.CREATED)
     }
 
     @DeleteMapping(value = arrayOf("/customer/{id}"))
