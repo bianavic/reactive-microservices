@@ -8,4 +8,5 @@ interface CustomerService {
     fun deleteCustomer(id: Int)
     fun updateCustomer(id: Int, customer: Customer)
     fun searchCustomer(nameFilter: String): List<Customer>
+
 }
