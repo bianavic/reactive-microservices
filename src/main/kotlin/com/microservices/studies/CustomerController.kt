@@ -25,4 +25,7 @@ class CustomerController {
     fun createCustomer(@RequestBody customer: Customer) {
         customers[customer.id] = customer
     }
+
+    @RequestMapping(value = arrayOf("/customer/{id}"), method = arrayOf(RequestMethod.DELETE))
+    fun deleteCustomer(@PathVariable id: Int) = customers.remove(id)
 }
