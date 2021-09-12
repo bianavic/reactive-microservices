@@ -26,9 +26,9 @@ class CustomerController {
     // @RequestBody = means it is sending a object
     // set Unit = equivalent to void type
     @PostMapping(value = arrayOf("/customer"))
-    fun createCustomer(@RequestBody customer: Customer):  ResponseEntity<Unit> {
+    fun createCustomer(@RequestBody customer: Customer):  ResponseEntity<Unit?> {
         customerService.createCustomer(customer)
-        return ResponseEntity(Unit, HttpStatus.CREATED)
+        return ResponseEntity(null, HttpStatus.CREATED)
     }
 
     @DeleteMapping(value = arrayOf("/customer/{id}"))
@@ -42,7 +42,12 @@ class CustomerController {
     }
 
     @PutMapping(value = arrayOf("/customer/{id}"))
-    fun updateCustomer(@PathVariable id: Int, @RequestBody customer: Customer) {
-        customerService.updateCustomer(id, customer)
+    fun updateCustomer(@PathVariable id: Int, @RequestBody customer: Customer): ResponseEntity<Unit> {
+        var status = HttpStatus.NOT_FOUND
+        if (customerService.getCustomer(id) != null) {
+            customerService.updateCustomer(id, customer)
+            status = HttpStatus.ACCEPTED
+        }
+        return ResponseEntity(Unit, status)
     }
 }
