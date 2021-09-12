@@ -11,10 +11,10 @@ import javax.servlet.http.HttpServletRequest
 @ControllerAdvice
 class ErrorHandler {
 
-    @ExceptionHandler(JsonParseException::class)
+    @ExceptionHandler(CustomerNotFoundException::class)
     fun JsonParserExceptionHandler(servletRequest: HttpServletRequest,
                                    exception: Exception): ResponseEntity<ErrorResponse> {
-        return ResponseEntity(ErrorResponse("JSON Error", exception.message ?: "invalid json"),
+        return ResponseEntity(ErrorResponse("Customer not found", exception.message!! ),
         HttpStatus.BAD_REQUEST)
     }
 }
