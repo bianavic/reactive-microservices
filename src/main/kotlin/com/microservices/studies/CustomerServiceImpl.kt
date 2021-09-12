@@ -7,8 +7,8 @@ import java.util.concurrent.ConcurrentHashMap
 class CustomerServiceImpl : CustomerService {
     // add a map and initialization as we do in the past on our bean to have our customers in this class
     companion object {
-        val initialCustomer = arrayOf(Customer(1, "Jane Doe", Customer.Telephone("+55", "9999999999")),
-            Customer(2, "John Doe", Customer.Telephone("+55", "888888888")),
+        val initialCustomer = arrayOf(Customer(1, "Jane Doe"),
+            Customer(2, "John Doe"),
             Customer(3, "Mary Ann", Customer.Telephone("+55", "777777777"))
         )
     }
