@@ -19,7 +19,7 @@ class CustomerRouter(private val customerHandler: CustomerHandler) {
         POST("/", customerHandler::get)
       }
       "/customers".nest {
-        GET("/", customerHandler::get)
+        GET("/", customerHandler::search)
       }
     }
   }
