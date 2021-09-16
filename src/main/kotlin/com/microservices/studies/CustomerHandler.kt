@@ -9,6 +9,8 @@ import org.springframework.web.reactive.function.server.ServerResponse.status
 
 /**
  * @author fferlin
+ *
+ * HANDLER perform the logic to transform a concrete request into a response
  */
 
 @Component
