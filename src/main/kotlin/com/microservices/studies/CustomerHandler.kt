@@ -6,6 +6,7 @@ import org.springframework.web.reactive.function.BodyInserters.fromObject
 import org.springframework.web.reactive.function.server.ServerRequest
 import org.springframework.web.reactive.function.server.ServerResponse.ok
 import org.springframework.web.reactive.function.server.ServerResponse.status
+import org.springframework.web.reactive.function.server.bodyToMono
 
 /**
  * @author fferlin
@@ -23,4 +24,9 @@ class CustomerHandler(val customerService: CustomerService) {
 
     fun search(serverRequest: ServerRequest) =
         ok().body(customerService.searchCustomer(serverRequest.queryParam("nameFilter").orElse("")), Customer::class.java)
+
+    fun create(serverRequest: ServerRequest) =
+        customerService.createCustomer(serverRequest.bodyToMono()).flatMap {
+            status(HttpStatus.CREATED).body(fromObject(it))
+        }
 }
