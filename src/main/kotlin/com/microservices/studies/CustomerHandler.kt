@@ -4,8 +4,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.BodyInserters.fromObject
 import org.springframework.web.reactive.function.server.ServerRequest
-import org.springframework.web.reactive.function.server.ServerResponse.ok
-import org.springframework.web.reactive.function.server.ServerResponse.status
+import org.springframework.web.reactive.function.server.ServerResponse.*
 import org.springframework.web.reactive.function.server.bodyToMono
 
 /**
@@ -27,6 +26,6 @@ class CustomerHandler(val customerService: CustomerService) {
 
     fun create(serverRequest: ServerRequest) =
         customerService.createCustomer(serverRequest.bodyToMono()).flatMap {
-            status(HttpStatus.CREATED).body(fromObject(it))
+            created(java.net.URI.create("/functional/customer/${it.id}")).build()
         }
 }

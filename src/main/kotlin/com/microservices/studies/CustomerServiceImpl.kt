@@ -27,9 +27,10 @@ class CustomerServiceImpl : CustomerService {
             it.value.name.contains(nameFilter, true)
         }.map(Map.Entry<Int, Customer>::value).toFlux()
 
-    override fun createCustomer(customerMono: Mono<Customer>): Mono<*> =
+    override fun createCustomer(customerMono: Mono<Customer>) =
         customerMono.map {
             customers[it.id] = it
+            it
         }
 
 }
