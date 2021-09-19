@@ -27,5 +27,8 @@ class CustomerHandler(val customerService: CustomerService) {
     fun create(serverRequest: ServerRequest) =
         customerService.createCustomer(serverRequest.bodyToMono()).flatMap {
             created(java.net.URI.create("/functional/customer/${it.id}")).build()
+        }.onErrorResume(Exception::class.java) {
+            badRequest().body(fromObject(ErrorResponse("error creating customer",
+                it.message ?: "error")))
         }
 }
