@@ -4,8 +4,12 @@ import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.BodyInserters.fromObject
 import org.springframework.web.reactive.function.server.ServerRequest
+import org.springframework.web.reactive.function.server.ServerResponse.badRequest
+import org.springframework.web.reactive.function.server.ServerResponse.created
 import org.springframework.web.reactive.function.server.ServerResponse.ok
 import org.springframework.web.reactive.function.server.ServerResponse.status
+import org.springframework.web.reactive.function.server.bodyToMono
+import java.net.URI
 
 /**
  * @author fferlin
@@ -22,5 +26,11 @@ class CustomerHandler(val customerService: CustomerService) {
             .switchIfEmpty(status(HttpStatus.NOT_FOUND).build())
 
     fun search(serverRequest: ServerRequest) =
-        ok().body(customerService.searchCustomer(serverRequest.queryParam("nameFilter").orElse("")), Customer::class.java)
+        ok().body(customerService.searchCustomers(serverRequest.queryParam("nameFilter")
+            .orElse("")), Customer::class.java)
+
+    fun create(serverRequest: ServerRequest) =
+        customerService.createCustomer(serverRequest.bodyToMono()).flatMap {
+            status(HttpStatus.CREATED).body(fromObject(it))
+        }
 }

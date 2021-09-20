@@ -23,7 +23,7 @@ class CustomerController {
 
     @GetMapping(value = arrayOf("/customers"))
     fun getCustomers(@RequestParam(required = false, defaultValue = "") nameFilter: String) =
-        ResponseEntity(customerService.searchCustomer(nameFilter), HttpStatus.OK)
+        ResponseEntity(customerService.searchCustomers(nameFilter), HttpStatus.OK)
 
     // @RequestBody = means it is sending a object
     // set Unit = equivalent to void type

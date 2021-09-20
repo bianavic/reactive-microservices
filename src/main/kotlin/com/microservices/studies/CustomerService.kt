@@ -13,6 +13,6 @@ interface CustomerService {
     // return a publisher for a single customer
     fun getCustomer(id: Int) : Mono<Customer>
     fun createCustomer(customerMono: Mono<Customer>) : Mono<*>
-    fun searchCustomer(nameFilter: String): Flux<Customer>
+    fun searchCustomers(nameFilter: String): Flux<Customer>
 
 }
