@@ -1,4 +1,4 @@
-# studies
+# reactive microservices studies
 
 ### objective
 Study reactive programming with kotlin
@@ -18,6 +18,3 @@ Hands On Microservices with Kotlin
 - Spring WebFlux
 - Project Reactor
 - Reactive Spring Data
-
-
-
